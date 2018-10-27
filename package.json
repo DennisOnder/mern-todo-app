@@ -1,0 +1,30 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "A full-stack Todo application",
+  "main": "express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DennisOnder/mern-todo-app.git"
+  },
+  "author": "Dennis Onder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DennisOnder/mern-todo-app/issues"
+  },
+  "homepage": "https://github.com/DennisOnder/mern-todo-app#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.7"
+  },
+  "devDependencies": {
+    "node-sass": "^4.9.4",
+    "nodemon": "^1.18.5"
+  }
+}
