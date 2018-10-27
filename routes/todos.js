@@ -7,8 +7,8 @@ const Validator = require('validator');
 // @route  GET /api/todos
 // @desc   Get user's todos via user ID
 // @access Private
-router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Todo.find({ user: req.user.id })
+router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Todo.find({ user: req.params.id }).sort({date: -1})
     .then(todos => res.json(todos))
     .catch(err => res.send(err));
 });
@@ -25,7 +25,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     res.status(400).json(errors);
   } else {
     const newTodo = new Todo({
-      user: req.user.id,
+      user: req.body.id,
       text: req.body.text
     });
     newTodo.save()

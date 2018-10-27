@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 class Login extends Component {
 
@@ -25,7 +26,13 @@ class Login extends Component {
       password: this.state.password
     };
     axios.post('/api/login', user)
-      .then(res => console.log(res))
+      .then(res => res.data)
+      .then(data => {
+        const { token } = data;
+        console.log(jwt_decode(token));
+        localStorage.setItem('jwtToken', token);
+        window.location.href = '/dashboard';
+      })
       .catch(err => console.log(err));
   }
 
