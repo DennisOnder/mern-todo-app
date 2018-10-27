@@ -4,7 +4,7 @@
   "description": "A full-stack Todo application",
   "main": "express.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"nodemon express\" \"npm start --prefix client\""
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "validator": "^10.8.0"
   },
   "devDependencies": {
+    "node-sass": "^4.9.4",
     "nodemon": "^1.18.5"
   }
 }
