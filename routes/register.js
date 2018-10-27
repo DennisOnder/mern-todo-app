@@ -3,6 +3,9 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
+// @route  POST /api/register
+// @desc   Register a new user
+// @access Public
 router.post('/', (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
