@@ -6,6 +6,7 @@ const dbKey = require('./utils/keys').mongoURI;
 const passport = require('passport');
 const register = require('./routes/register');
 const login = require('./routes/login');
+const todos = require('./routes/todos');
 const port = process.env.PORT || 8000;
 
 // Body Parser
@@ -22,5 +23,6 @@ mongoose.connect(dbKey, { useNewUrlParser: true }, () => console.log('Mongoose C
 // Router
 app.use('/api/register', register);
 app.use('/api/login', login);
+app.use('/api/todos', todos);
 
 app.listen(port, () => console.log(`Server's running on port ${port}.`));

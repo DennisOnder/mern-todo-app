@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// @route  GET /api/login
+// @route  GET /api/login/current
 // @desc   Get current user's data
 // @access Private
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
