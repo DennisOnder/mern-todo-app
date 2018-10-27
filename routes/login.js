@@ -5,15 +5,29 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const key = require('../utils/keys').secretOrKey;
+const Validator = require('validator');
 
 // @route  POST /api/login
 // @desc   Log in
 // @access Public
 router.post('/', (req, res) => {
-  User.findOne({ email: req.body.email })
+  let errors = {};
+  if(Validator.isEmpty(req.body.email)) {
+    errors.empty = 'Email Field is required.';
+  }
+  if(!Validator.isEmail(req.body.email)) {
+    errors.email = 'Please enter a valid email address.';
+  }
+  if(Validator.isEmpty(req.body.password)) {
+    errors.password = 'Password is required.';
+  }
+  if(errors.email || errors.empty || errors.password) {
+    return res.status(400).json(errors);
+  } else {
+    User.findOne({ email: req.body.email })
     .then(user => {
       if(!user) {
-        return res.status(400).json({ errorUser: 'User does not exist.' });
+        return res.status(400).json({ userDoesNotExist: 'User does not exist.' });
       }
       else {
         bcrypt.compare(req.body.password, user.password)
@@ -23,7 +37,7 @@ router.post('/', (req, res) => {
                 id: user.id,
                 email: user.email
               };
-              jwt.sign(payload, key, { expiresIn: 3600 }, (err, token) => {
+              jwt.sign(payload, key, { expiresIn: 172800 }, (err, token) => {
                 if(err) {
                   res.json(err);
                 } else {
@@ -31,11 +45,12 @@ router.post('/', (req, res) => {
                 }
               })
             } else {
-              return res.status(400).json({ password: 'Incorrect Password.' });
+              return res.status(400).json({ IncorrectPassword: 'Incorrect Password.' });
             }
           });
         }
     });
+  }
 });
 
 // @route  GET /api/login/current

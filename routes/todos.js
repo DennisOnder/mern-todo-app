@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const Todo = require('../models/Todo');
+const Validator = require('validator');
 
 // @route  GET /api/todos
 // @desc   Get user's todos via user ID
@@ -16,13 +17,21 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 // @desc   Add new todo which is linked via user ID
 // @access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const newTodo = new Todo({
-    user: req.user.id,
-    text: req.body.text
-  });
-  newTodo.save()
-    .then(todo => res.json(todo))
-    .catch(err => res.send(err));
+  let errors = {};
+  if(Validator.isEmpty(req.body.text)) {
+    errors.empty = 'Text Field is empty.';
+  }
+  if(errors.empty) {
+    res.status(400).json(errors);
+  } else {
+    const newTodo = new Todo({
+      user: req.user.id,
+      text: req.body.text
+    });
+    newTodo.save()
+      .then(todo => res.json(todo))
+      .catch(err => res.send(err));
+  }
 });
 
 module.exports = router;
