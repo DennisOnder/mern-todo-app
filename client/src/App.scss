@@ -43,6 +43,96 @@
   }
 }
 
+.Authentication {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(52deg, #22c1c3, #9cc322);
+  background-size: 400% 400%;
+  -webkit-animation: gradientAnimation 30s ease infinite;
+  -moz-animation: gradientAnimation 30s ease infinite;
+  animation: gradientAnimation 30s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    font-family: 'Pacifico', Arial, Helvetica, sans-serif;
+    color: #fff;
+    font-size: 42px;
+  }
+  input {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    text-align: center;
+    background: transparent;
+    outline: 0;
+    border: none;
+    box-shadow: none;
+    color: #fff;
+    font-size: 16px;
+    border-bottom: 1px solid #fff;
+    padding: 1em;
+    margin-bottom: 20px;
+    &::placeholder {
+      text-align: center;
+      color: #fff !important;
+      opacity: 1;
+    }
+    &:-ms-input-placeholder {
+      text-align: center;
+      color: #fff !important;
+    }
+    &:-ms-input-placeholder {
+      text-align: center;
+      color: #fff !important;
+    }
+    &::-ms-input-placeholder {
+      text-align: center;
+      color: #fff !important;
+    }
+    &:focus::-moz-placeholder {
+      text-align: center;
+      transition: 0.1s !important;
+      color: transparent !important;
+    }
+    &:focus:-moz-placeholder {
+      text-align: center;
+      transition: 0.1s !important;
+      color: transparent !important;
+    }
+    &:focus::-webkit-input-placeholder {
+      text-align: center;
+      transition: 0.1s !important;
+      color: transparent !important;
+    }
+    &:focus::-ms-input-placeholder {
+      text-align: center;
+      transition: 0.1s !important;
+      color: transparent#fff !important;
+    }
+  }
+  button {
+    padding: 0.75em 3em;
+    background-color: #fff;
+    color: #333;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    border-radius: 25px;
+    margin: 0 10px 0 10px;
+    border: 0;
+    outline: 0;
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(51,51,51,0.5);
+    -moz-box-shadow: 3px 3px 10px 0px rgba(51,51,51,0.5);
+    box-shadow: 3px 3px 10px 0px rgba(51,51,51,0.5);
+    &:hover {
+      transition: 0.2s;
+      background-color: darken(#fff, 7%);
+      cursor: pointer;
+    }
+  }
+}
+
+
 @-webkit-keyframes gradientAnimation {
   0%{background-position:0% 99%}
   50%{background-position:100% 2%}

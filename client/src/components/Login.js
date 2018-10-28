@@ -39,8 +39,9 @@ class Login extends Component {
   render() {
     return (
       <div className="Authentication">
-        <input type="text" name="email" value={this.state.email} onChange={this.onChange}/>
-        <input type="password" name="password" value={this.state.password} onChange={this.onChange}/>
+      <h1>Log In</h1>
+        <input type="text" name="email" value={this.state.email} onChange={this.onChange} placeholder="Email:"/>
+        <input type="password" name="password" value={this.state.password} onChange={this.onChange} placeholder="Password:"/>
         <button onClick={this.onClick}>Login</button>
       </div>
     )
