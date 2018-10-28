@@ -21,14 +21,13 @@ class Register extends Component {
   };
 
   onClick() {
-    const user = {
+    const newUser = {
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     };
-    axios.post('/api/register', user)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    axios.post('/api/register', newUser)
+      .then(res => console.log(res.data));
   }
 
   render() {
