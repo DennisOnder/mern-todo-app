@@ -4,9 +4,25 @@ import Auth from './components/Auth';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import jwt_decode from 'jwt-decode';
 import './App.scss';
 
 class App extends Component {
+
+  componentDidMount = () => {
+    if(localStorage.jwtToken) {
+      const token = localStorage.jwtToken;
+      const decoded = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
+      if(decoded.exp < currentTime) {
+        localStorage.removeItem('jwtToken');
+        window.location.replace('/login');
+      } else {
+        window.location.href = '/dashboard';
+      }
+    }
+  }
+
   render() {
     return (
       <Router>

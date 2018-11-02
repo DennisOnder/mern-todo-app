@@ -27,7 +27,8 @@ class Register extends Component {
       password2: this.state.password2
     };
     axios.post('/api/register', newUser)
-      .then(res => console.log(res.data));
+      .then(res => window.location.href = '/login')
+      .catch(err => console.log(err));
   }
 
   render() {
