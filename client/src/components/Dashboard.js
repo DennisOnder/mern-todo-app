@@ -11,6 +11,19 @@ class Dashboard extends Component {
     };
   };
 
+  componentDidMount() {
+    const token = localStorage.jwtToken;
+    const decoded = jwt_decode(token);
+    axios.defaults.headers.common['Authorization'] = token;
+    axios.get(`/api/todos/${decoded.id}`)
+      .then(res => res.data)
+      .then(data => {
+        const todos = data;
+        this.setState({todos});
+        console.log(this.state.todos);
+      });
+  };
+
   render() {
     return (
       <div>
