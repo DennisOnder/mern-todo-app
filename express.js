@@ -18,7 +18,7 @@ app.use(passport.initialize());
 require('./utils/passport')(passport);
 
 // MongoDB
-mongoose.connect(dbKey, { useNewUrlParser: true }, () => console.log('Mongoose Connection Established.'))
+mongoose.connect(dbKey, { useNewUrlParser: true }, () => console.log('Mongoose Connection Established.'));
 
 // Router
 app.use('/api/register', register);

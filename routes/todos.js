@@ -31,7 +31,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     newTodo.save()
       .then(todo => res.json(todo))
       .catch(err => res.send(err));
-  }
+  };
 });
 
 module.exports = router;

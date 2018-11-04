@@ -9,7 +9,7 @@ import './App.scss';
 
 class App extends Component {
 
-  componentDidMount = () => {
+  componentDidMount() {
     if(localStorage.jwtToken) {
       const token = localStorage.jwtToken;
       const decoded = jwt_decode(token);
@@ -19,9 +19,9 @@ class App extends Component {
         window.location.replace('/login');
       } else {
         window.location.href = '/dashboard';
-      }
-    }
-  }
+      };
+    };
+  };
 
   render() {
     return (
