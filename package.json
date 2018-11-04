@@ -4,6 +4,7 @@
   "description": "A full-stack Todo application",
   "main": "express.js",
   "scripts": {
+    "dependencies": "npm install && npm install --prefix client",
     "dev": "concurrently \"nodemon express\" \"npm start --prefix client\""
   },
   "repository": {
