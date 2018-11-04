@@ -4,20 +4,12 @@ import axios from 'axios';
 
 class Dashboard extends Component {
 
-  componentWillMount() {
-    if(!localStorage.jwtToken) {
-      window.location.href = '/';
+  constructor() {
+    super();
+    this.state = {
+      todos: []
     };
   };
-
-  componentDidMount = () => {
-    const token = localStorage.jwtToken;
-    const decoded = jwt_decode(token);
-    axios.defaults.headers.common['Authorization'] = token;
-    axios.get(`/api/todos/${decoded.id}`)
-      .then(res => console.log(res.data));
-  }
-  
 
   render() {
     return (
