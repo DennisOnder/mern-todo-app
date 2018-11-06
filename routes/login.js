@@ -38,14 +38,10 @@ router.post('/', (req, res) => {
                 email: user.email
               };
               jwt.sign(payload, key, { expiresIn: 172800 }, (err, token) => {
-                if(err) {
-                  res.json(err);
-                } else {
-                  res.json({ success: true, token: 'Bearer ' + token });
-                }
+                res.json({ success: true, token: 'Bearer ' + token });
               })
             } else {
-              return res.status(400).json({ IncorrectPassword: 'Incorrect Password.' });
+              return res.status(400).json({ incorrectPassword: 'Incorrect Password.' });
             }
           });
         }

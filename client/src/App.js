@@ -16,7 +16,6 @@ class App extends Component {
       const currentTime = Date.now() / 1000;
       if(decoded.exp < currentTime) {
         localStorage.removeItem('jwtToken');
-        window.location.replace('/login');
       } else {
         window.location.href = '/dashboard';
       };

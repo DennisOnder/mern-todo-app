@@ -34,24 +34,16 @@ router.post('/', (req, res) => {
           password: req.body.password
         });
         bcrypt.genSalt(10, (err, salt) => {
-          if(err) {
-            res.json(err);
-          } else {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if(err) {
-                res.json(err);
-              } else {
-                newUser.password = hash;
-                newUser.save()
-                  .then(user => res.json(user))
-                  .catch(err => res.send(err));
-              }
-            })
-          }
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            newUser.password = hash;
+            newUser.save()
+              then(user => res.json(user))
+              .catch(err => res.send(err));
+          })
         })
       }
     })
-  }
+   }
 });
 
 module.exports = router;
