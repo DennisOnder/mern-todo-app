@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 
@@ -12,6 +11,9 @@ class Dashboard extends Component {
       redirect: false
     };
     this.checkForRedirect = this.checkForRedirect.bind(this);
+    this.fetchTodos = this.fetchTodos.bind(this);
+    this.addTodos = this.addTodos.bind(this);
+    this.deleteTodos = this.deleteTodos.bind(this);
   };
 
   componentDidMount() {
@@ -28,24 +30,70 @@ class Dashboard extends Component {
     if(isAuthenticated === false) {
       window.location.href = '/login';
     } else {
-      const token = localStorage.jwtToken;
-      const decoded = jwt_decode(token);
-      axios.defaults.headers.common['Authorization'] = token;
-      axios.get(`/api/todos/${decoded.id}`)
-        .then(res => res.data)
-        .then(data => {
-          const todos = data;
-          this.setState({todos});
-          console.log(this.state.todos);
-        }
-      );
+      this.fetchTodos();
     };
   };
 
+  fetchTodos() {
+    const token = localStorage.jwtToken;
+    const decoded = jwt_decode(token);
+    axios.defaults.headers.common['Authorization'] = token;
+    axios.get(`/api/todos/${decoded.id}`)
+      .then(res => res.data)
+      .then(data => {
+        const todos = data;
+        this.setState({todos});
+      }
+    );
+  };
+
+  addTodos(e) {
+    if(e.keyCode === 13 || e.which === 13) {
+      const token = localStorage.jwtToken;
+      const decoded = jwt_decode(token);
+      const newTodo = {
+        id: decoded.id,
+        text: this.refs.inputField.value
+      };
+      axios.post('/api/todos', newTodo)
+        .then(res => {
+          console.log(res);
+          this.fetchTodos();
+        })
+        .catch(err => console.log(err));
+    };
+  };
+
+  deleteTodos(todoKey) {
+    axios.delete(`/api/todos/${todoKey}`)
+      .then(res => {
+        console.log(res);
+        this.fetchTodos();
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     return (
-      <div>
+      <div id="Dashboard">
         <h1>Dashboard</h1>
+        <div id="todoWrapper">
+          <div className="todoDivs" id="todoInput">
+            <input type="text" id="todoInput" placeholder="What's on your mind today?" ref="inputField" onKeyPress={this.addTodos} />    
+          </div>
+            {
+              this.state.todos.map(todo => {
+                return(
+                  <div className="todoDivs" key={todo._id}>
+                    <div>
+                      <p>{todo.text}</p>
+                      <i className="far fa-trash-alt" onClick={() => { this.deleteTodos(todo._id) }}></i>
+                    </div>
+                  </div>
+                )
+              })
+            }
+        </div>
       </div>
     )
   }

@@ -22,7 +22,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     errors.empty = 'Text Field is empty.';
   }
   if(errors.empty) {
-    res.status(400).json(errors);
+    return res.status(400).json(errors);
   } else {
     const newTodo = new Todo({
       user: req.body.id,
@@ -32,6 +32,17 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
       .then(todo => res.json(todo))
       .catch(err => res.send(err));
   };
+})
+
+// @route  DELETE /api/todos
+// @desc   Delete user's todos via user ID
+// @access Private
+router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Todo.findByIdAndRemove(req.params.id, (err, res) => {
+    if(err) {
+      return res.status(500).json(err);
+    }
+  });
 });
 
 module.exports = router;
