@@ -14,6 +14,7 @@ class Dashboard extends Component {
     this.fetchTodos = this.fetchTodos.bind(this);
     this.addTodos = this.addTodos.bind(this);
     this.deleteTodos = this.deleteTodos.bind(this);
+    this.logOut = this.logOut.bind(this);
   };
 
   componentDidMount() {
@@ -74,10 +75,20 @@ class Dashboard extends Component {
       .catch(err => console.log(err));
   }
 
+  logOut() {
+    localStorage.removeItem('jwtToken');
+    this.setState({redirect: true});
+    window.location.href = '/login';
+  }
+
   render() {
     return (
       <div id="Dashboard">
-        <h1>Dashboard</h1>
+      <nav>
+        <h4>JustAnotherTodoApp</h4>
+        <button onClick={this.logOut}>Log Out</button>
+      </nav>
+        <h1>Your Todos:</h1>
         <div id="todoWrapper">
           <div className="todoDivs" id="todoInput">
             <input type="text" id="todoInput" placeholder="What's on your mind today?" ref="inputField" onKeyPress={this.addTodos} />    
