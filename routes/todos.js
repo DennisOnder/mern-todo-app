@@ -35,14 +35,12 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 })
 
 // @route  DELETE /api/todos
-// @desc   Delete user's todos via user ID
+// @desc   Delete user's todos via todo ID
 // @access Private
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Todo.findByIdAndRemove(req.params.id, (err, res) => {
-    if(err) {
-      return res.status(500).json(err);
-    }
-  });
+  Todo.findOneAndDelete({_id: req.params.id})
+    .then(res => res.json(res.data))
+    .catch(err => res.send(err));
 });
 
 module.exports = router;

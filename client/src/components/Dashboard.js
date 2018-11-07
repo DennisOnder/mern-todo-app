@@ -58,6 +58,7 @@ class Dashboard extends Component {
       axios.post('/api/todos', newTodo)
         .then(res => {
           console.log(res);
+          this.refs.inputField.value = '';
           this.fetchTodos();
         })
         .catch(err => console.log(err));
