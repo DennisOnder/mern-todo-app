@@ -269,7 +269,11 @@
   position: fixed;
   height: 100vh;
   width: 100%;
-  background-color: #028090;
+  background: linear-gradient(52deg, #22c1c3, #9cc322);
+  background-size: 400% 400%;
+  -webkit-animation: gradientAnimation 30s ease infinite;
+  -moz-animation: gradientAnimation 30s ease infinite;
+  animation: gradientAnimation 30s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
