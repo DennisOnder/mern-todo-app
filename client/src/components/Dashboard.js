@@ -31,6 +31,7 @@ class Dashboard extends Component {
     if(isAuthenticated === false) {
       window.location.href = '/login';
     } else {
+      this.refs.spinner.style.display = 'none';
       this.fetchTodos();
     };
   };
@@ -84,29 +85,35 @@ class Dashboard extends Component {
   render() {
     return (
       <div id="Dashboard">
-      <nav>
-        <h4>JustAnotherTodoApp</h4>
-        <button onClick={this.logOut}>Log Out</button>
-      </nav>
-        <h1>Your Todos:</h1>
-        <div id="todoWrapper">
-          <div className="todoDivs" id="todoInput">
-            <input type="text" id="todoInput" placeholder="What's on your mind today?" ref="inputField" onKeyPress={this.addTodos} />    
+        <div id="Spinner" ref="spinner">
+          <div className="lds-ripple">
+              <div></div>
+              <div></div>
+            </div>
           </div>
-            {
-              this.state.todos.map(todo => {
-                return(
-                  <div className="todoDivs" key={todo._id}>
-                    <div>
-                      <p>{todo.text}</p>
-                      <i className="far fa-trash-alt" onClick={() => { this.deleteTodos(todo._id) }}></i>
-                    </div>
-                  </div>
-                )
-              })
-            }
-        </div>
-      </div>
+          <nav>
+            <h4>JustAnotherTodoApp</h4>
+            <button onClick={this.logOut}>Log Out</button>
+          </nav>
+            <h1>Your Todos:</h1>
+            <div id="todoWrapper">
+              <div className="todoDivs" id="todoInput">
+                <input type="text" id="todoInput" placeholder="What's on your mind today?" ref="inputField" onKeyPress={this.addTodos} />    
+              </div>
+                {
+                  this.state.todos.map(todo => {
+                    return(
+                      <div className="todoDivs" key={todo._id}>
+                        <div>
+                          <p>{todo.text}</p>
+                          <i className="far fa-trash-alt" onClick={() => { this.deleteTodos(todo._id) }}></i>
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+            </div>
+          </div>
     )
   }
 }
